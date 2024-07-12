@@ -1,0 +1,14 @@
+wheres_carmen_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      schema: dev
+    
+    # lab:
+    #   type: duckdb
+    #   schema: lab
+    
+    # prod:
+    #   type: duckdb
+    #   schema: prod

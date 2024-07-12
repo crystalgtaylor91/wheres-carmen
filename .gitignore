@@ -1,0 +1,43 @@
+# Byte-compiled/ DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution/ Packaging
+.Python
+build/
+lib/
+lib64/
+dist/
+downloads/
+wheels/
+
+# Ignore dbt artifacts
+*/target/
+*/dbt_modules/
+*/logs/
+*/dbt_packages/
+
+# Ignore dbt logs and compiled SQL
+*/dbt_modules.log
+*/run_results.json
+logs/
+/*.pyc
+
+# Ignore Poetry-generated files
+env/
+.env/
+.venv/
+venv/
+.poetry/
+poetry.lock
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore user-specific dbt profiles
+~/.dbt/profiles.yml
+
+
+# Remove later, just for notes
+README_CrystalNotes.md
