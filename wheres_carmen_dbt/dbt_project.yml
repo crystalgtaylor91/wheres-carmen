@@ -20,10 +20,8 @@ models:
   wheres_carmen_dbt:
     +materialized: table
     raw:
-      +schema: RAW
+      +schema: staging
       +materialized: view
-    refined:
-      +schema: REFINED
     processed:
       +schema: PROCESSED
     analytics:
