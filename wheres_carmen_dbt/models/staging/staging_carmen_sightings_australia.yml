@@ -1,0 +1,58 @@
+version: 2.0
+
+models:
+  - name: staging_carmen_sightings_australia
+    description: raw data ingested from seed
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: date_witness
+        data_type: date
+        alias: witnessed
+        description: Date of witness sighting
+      - name: witness
+        data_type: string
+        alias: observer
+        description: Name of witness sighting the perpetrator
+      - name: agent
+        data_type: string
+        alias: field_chap
+        description: Name of field agent filing the report
+      - name: date_agent
+        data_type: date
+        alias: reported
+        description: Date of field agent filing the report
+      - name: city_agent
+        data_type: string
+        alias: interpol_spot
+        description: HQ city where field agent files the report
+      - name: country
+        data_type: string
+        alias: nation
+        description: Country of sighting
+      - name: city
+        data_type: string
+        alias: place
+        description: City of sighting
+      - name: latitude
+        data_type: float
+        alias: lat
+        description: Latitude of sighting
+      - name: longitude
+        data_type: float
+        alias: long
+        description: Longitude of sighting
+      - name: has_weapon
+        data_type: boolean
+        description: Was the perpetrator observed to be armed?
+      - name: has_hat
+        data_type: boolean
+        description: Was the perpetrator wearing a hat?
+      - name: has_jacket
+        data_type: boolean
+        description: Was the perpetrator wearing a jacket?
+      - name: behavior
+        data_type: string
+        alias: state_of_mind
+        description: Short description of perpetrator behavior

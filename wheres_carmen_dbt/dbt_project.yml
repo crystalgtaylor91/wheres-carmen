@@ -18,12 +18,14 @@ clean-targets:
 
 models:
   wheres_carmen_dbt:
-    +materialized: table
-    raw:
+    +materialized: view
+    staging:
       +schema: staging
-      +materialized: view
+    intermediate:
+      +schema: intermediate
     processed:
-      +schema: PROCESSED
+      +schema: processed
+      +materialized: table
     analytics:
-      +schema: ANALYTICS
+      +schema: analytics
       +materialized: view

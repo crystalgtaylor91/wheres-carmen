@@ -1,53 +1,56 @@
 version: 2.0
 
 models:
-  - name: carmen_sightings_asia
+  - name: staging_carmen_sightings_asia
     description: raw data ingested from seed
+    config:
+      contract:
+        enforced: true
     columns:
       - name: date_witness
-        type: date
+        data_type: date
         alias: sighting
         description: Date of witness sighting
       - name: witness
-        type: string
+        data_type: string
         alias: citizen
         description: Name of witness sighting the perpetrator
       - name: agent
-        type: string
+        data_type: string
         alias: officer
         description: Name of field agent filing the report
       - name: date_agent
-        type: date
+        data_type: date
         alias: 报道
         description: Date of field agent filing the report
       - name: city_agent
-        type: string
+        data_type: string
         alias: city_interpol
         description: HQ city where field agent files the report
       - name: country
-        type: string
+        data_type: string
         alias: nation
         description: Country of sighting
       - name: city
-        type: string
+        data_type: string
         description: City of sighting
       - name: latitude
-        type: float
+        data_type: float
         alias: 纬度
         description: Latitude of sighting
       - name: longitude
-        type: float
+        data_type: float
         alias: 经度
         description: Longitude of sighting
       - name: has_weapon
-        type: boolean
+        data_type: boolean
         description: Was the perpetrator observed to be armed?
       - name: has_hat
-        type: boolean
+        data_type: boolean
         description: Was the perpetrator wearing a hat?
       - name: has_jacket
-        type: boolean
+        data_type: boolean
         description: Was the perpetrator wearing a jacket?
       - name: behavior
-        type: string
+        data_type: string
         description: Short description of perpetrator behavior

@@ -1,0 +1,47 @@
+version: 2.0
+
+models:
+  - name: sighting
+    description: Modelled data for sightings
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - agent_id
+            - sighting_location_id
+            - witness_id
+            - observations_id
+    columns:
+      - name: sighting_id
+        data_type: varchar
+        description: Primary key of sightings table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: agent_id
+        data_type: varchar
+        description: Foreign key of agent table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.agent (agent_id)
+      - name: location_id
+        data_type: varchar
+        description: foreign key of sighting location table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.location (location_id)
+      - name: witness_id
+        data_type: varchar
+        description: foreign key of witness table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.witness (witness_id)   
+      - name: observation_id
+        data_type: varchar
+        description: foreign key of observations table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.observation (observation_id)
+            

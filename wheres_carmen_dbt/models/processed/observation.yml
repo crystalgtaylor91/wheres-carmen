@@ -1,0 +1,34 @@
+version: 2.0
+
+models:
+  - name: observation
+    description: Modelled data for observations
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - has_weapon
+            - has_hat
+            - has_jacket
+            - behavior
+    columns:
+      - name: observation_id
+        data_type: varchar
+        description: Primary key of observation table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: has_weapon
+        data_type: boolean
+        description: Was the perpetrator observed to be armed?
+      - name: has_hat
+        data_type: boolean
+        description: Was the perpetrator wearing a hat?
+      - name: has_jacket
+        data_type: boolean
+        description: Was the perpetrator wearing a jacket?
+      - name: behavior
+        data_type: string
+        description: Short description of perpetrator behavior

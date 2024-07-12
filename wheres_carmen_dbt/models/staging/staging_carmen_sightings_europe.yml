@@ -1,55 +1,56 @@
 version: 2.0
 
 models:
-  - name: carmen_sightings_australia
+  - name: staging_carmen_sightings_europe
     description: raw data ingested from seed
+    config:
+      contract:
+        enforced: true
     columns:
       - name: date_witness
-        type: date
-        alias: witnessed
+        data_type: date
         description: Date of witness sighting
       - name: witness
-        type: string
-        alias: observer
+        data_type: string
         description: Name of witness sighting the perpetrator
       - name: agent
-        type: string
-        alias: field_chap
+        data_type: string
         description: Name of field agent filing the report
       - name: date_agent
-        type: date
-        alias: reported
+        data_type: date
+        alias: date_filed
         description: Date of field agent filing the report
       - name: city_agent
-        type: string
-        alias: interpol_spot
+        data_type: string
+        alias: region_hq
         description: HQ city where field agent files the report
       - name: country
-        type: string
-        alias: nation
+        data_type: string
         description: Country of sighting
       - name: city
-        type: string
-        alias: place
+        data_type: string
         description: City of sighting
       - name: latitude
-        type: float
-        alias: lat
+        data_type: float
+        alias: lat_
         description: Latitude of sighting
       - name: longitude
-        type: float
-        alias: long
+        data_type: float
+        alias: long_
         description: Longitude of sighting
       - name: has_weapon
-        type: boolean
+        data_type: boolean
+        alias: armed?
         description: Was the perpetrator observed to be armed?
       - name: has_hat
-        type: boolean
+        data_type: boolean
+        alias: chapeau?
         description: Was the perpetrator wearing a hat?
       - name: has_jacket
-        type: boolean
+        data_type: boolean
+        alias: coat?
         description: Was the perpetrator wearing a jacket?
       - name: behavior
-        type: string
-        alias: state_of_mind
+        data_type: string
+        alias: observed_action
         description: Short description of perpetrator behavior

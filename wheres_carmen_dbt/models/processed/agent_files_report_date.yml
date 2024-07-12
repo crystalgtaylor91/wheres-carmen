@@ -1,0 +1,32 @@
+version: 2.0
+
+models:
+  - name: agent_files_report_date
+    description: Modelled data for agent_files_report_date
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - agent_id
+            - date_agent_id
+    columns:
+      - name: agent_date_id
+        data_type: varchar
+        description: Primary key of agent_files_report_date table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: agent_id
+        data_type: varchar
+        description: Foreign key to the agent table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.agent (agent_id)
+      - name: date_agent_id
+        data_type: varchar
+        description: Name of field agent filing the report
+        constraints:
+          - type: foreign_key
+            expression: main_processed.date_agent (date_agent_id)

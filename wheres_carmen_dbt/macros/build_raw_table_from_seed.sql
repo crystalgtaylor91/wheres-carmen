@@ -4,7 +4,8 @@
 
 select
 {% for column in columns -%}
-    "{{ columns[column].get('alias', column) }}" as {{ column }}{% if not loop.last %}, {% endif %}
+    "{{ columns[column].get('alias', column) }}"::{{columns[column].get('data_type')}} 
+        as {{ column }}{% if not loop.last %}, {% endif %}
 {% endfor %}
 from {{ ref(seed) }}
 {% endmacro %}

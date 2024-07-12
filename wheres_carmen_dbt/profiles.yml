@@ -5,10 +5,8 @@ wheres_carmen_dbt:
       type: duckdb
       path: './target/wheres_carmen_dbt.duckdb'
     
-    # lab:
-    #   type: duckdb
-    #   schema: lab
+    lab:
+      type: duckdb
     
-    # prod:
-    #   type: duckdb
-    #   schema: prod
+    prod:
+      type: duckdb

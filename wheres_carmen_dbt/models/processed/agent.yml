@@ -1,0 +1,18 @@
+version: 2.0
+
+models:
+  - name: agent
+    description: Modelled data for agent
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: agent_id
+        data_type: varchar
+        description: Primary key of agent table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: agent
+        data_type: string
+        description: Name of field agent filing the report

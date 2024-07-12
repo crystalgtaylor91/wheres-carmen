@@ -1,0 +1,18 @@
+version: 2.0
+
+models:
+  - name: date_agent
+    description: Modelled data for date agent filed the report
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: date_agent_id
+        data_type: varchar
+        description: Primary key of date_agent table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: date_agent
+        data_type: date
+        description: Date of field agent filing the report

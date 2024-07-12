@@ -1,0 +1,33 @@
+version: 2.0
+
+models:
+  - name: location
+    description: Modelled data for location
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - city
+            - country
+    columns:
+      - name: location_id
+        data_type: varchar
+        description: Primary key of location table, country and city
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: country
+        data_type: string
+        description: Country of sighting
+      - name: city
+        data_type: string
+        alias: country
+        description: City of sighting
+      - name: latitude
+        data_type: float
+        description: Latitude of sighting
+      - name: longitude
+        data_type: float
+        description: Longitude of sighting

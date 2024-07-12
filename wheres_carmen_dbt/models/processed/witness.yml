@@ -1,0 +1,27 @@
+version: 2.0
+
+models:
+  - name: witness
+    description: Modelled data for witness
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - witness
+            - date_witness
+    columns:
+      - name: witness_id
+        data_type: varchar
+        description: Primary key of witness table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: witness
+        data_type: string
+        description: Name of witness sighting the perpetrator
+      - name: date_witness
+        data_type: date
+        description: Date of witness sighting    
+           
