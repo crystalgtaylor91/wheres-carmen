@@ -10,6 +10,9 @@ python = "^3.12"
 dbt-duckdb = "^1.8.1"
 dbt-core = "^1.8.3"
 duckdb = "^1.0.0"
+pandas = "^2.2.2"
+openpyxl = "^3.1.5"
+logging = "^0.4.9.6"
 
 
 [build-system]

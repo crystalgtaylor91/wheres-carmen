@@ -1,7 +1,7 @@
 version: 2.0
 
 models:
-  - name: carmen_sightings_africa
+  - name: carmen_sightings_indian
     description: raw data ingested from seed
     columns:
       - name: date_witness
@@ -16,9 +16,9 @@ models:
       - name: date_agent
         type: date
         description: Date of field agent filing the report
-      - name: region_hq
+      - name: city_agent
         type: string
-        alias: city_agent
+        alias: region_hq
         description: HQ city where field agent files the report
       - name: country
         type: string

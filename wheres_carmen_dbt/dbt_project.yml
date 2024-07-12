@@ -21,6 +21,7 @@ models:
     +materialized: table
     raw:
       +schema: RAW
+      +materialized: view
     refined:
       +schema: REFINED
     processed:

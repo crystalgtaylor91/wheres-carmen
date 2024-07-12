@@ -37,6 +37,7 @@ poetry.lock
 
 # Ignore user-specific dbt profiles
 ~/.dbt/profiles.yml
+.user.yml
 
 
 # Remove later, just for notes
