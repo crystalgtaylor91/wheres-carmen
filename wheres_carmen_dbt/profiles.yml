@@ -3,7 +3,7 @@ wheres_carmen_dbt:
   outputs:
     dev:
       type: duckdb
-      schema: dev
+      path: './target/wheres_carmen_dbt.duckdb'
     
     # lab:
     #   type: duckdb
