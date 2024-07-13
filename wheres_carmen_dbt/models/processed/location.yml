@@ -14,20 +14,21 @@ models:
     columns:
       - name: location_id
         data_type: varchar
-        description: Primary key of location table, country and city
+        description: Primary key of location table
         constraints:
           - type: not_null
           - type: primary_key
       - name: country
         data_type: string
-        description: Country of sighting
+        description: Country of sighting or report filed
       - name: city
         data_type: string
-        alias: country
-        description: City of sighting
+        description: City of sighting or report filed
+        constraints:
+          - type: not_null
       - name: latitude
         data_type: float
-        description: Latitude of sighting
+        description: Latitude of sighting or report filed
       - name: longitude
         data_type: float
-        description: Longitude of sighting
+        description: Longitude of sighting or report filed

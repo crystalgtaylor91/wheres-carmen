@@ -54,3 +54,7 @@ models:
         data_type: string
         alias: observed_action
         description: Short description of perpetrator behavior
+      - name: region
+        data_type: string
+        description: Region Carmen was found in
+        

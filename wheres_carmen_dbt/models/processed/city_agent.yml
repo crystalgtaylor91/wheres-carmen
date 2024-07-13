@@ -1,0 +1,18 @@
+version: 2.0
+
+models:
+  - name: city_agent
+    description: Modelled data for city_agent
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: city_agent_id
+        data_type: varchar
+        description: Primary key of city_agent table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: city_agent
+        data_type: string
+        description: HQ city where field agent files the report

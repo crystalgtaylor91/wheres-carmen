@@ -1,5 +1,5 @@
 select distinct
-    {{ dbt_utils.generate_surrogate_key(['country', 'city']) }} as location_id,
+    {{ dbt_utils.generate_surrogate_key(['city']) }} as location_id,
     country,
     city,
     longitude,

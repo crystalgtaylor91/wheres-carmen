@@ -1,0 +1,32 @@
+version: 2.0
+
+models:
+  - name: witness_sights_perp_date
+    description: Modelled data for relationship between witness and date_witness (date witness sights the perp) tables
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - witness_id
+            - date_witness_id
+    columns:
+      - name: witness_date_id
+        data_type: varchar
+        description: Primary key of witness_sights_perp_date table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: witness_id
+        data_type: varchar
+        description: Foreign key to the witness table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.witness (witness_id)
+      - name: date_witness_id
+        data_type: varchar
+        description: Foreign key to the date_witness table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.date_witness (date_witness_id)

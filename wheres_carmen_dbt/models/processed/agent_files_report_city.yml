@@ -2,7 +2,7 @@ version: 2.0
 
 models:
   - name: agent_files_report_city
-    description: Modelled data for agent_files_report_city
+    description: Modelled data of the relationship between agent and location (city the agent files the report in) tables
     config:
       contract:
         enforced: true
@@ -10,7 +10,7 @@ models:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - agent_id
-            - city_id
+            - city_agent_id
     columns:
       - name: agent_city_id
         data_type: varchar
@@ -24,9 +24,11 @@ models:
         constraints:
           - type: foreign_key
             expression: main_processed.agent (agent_id)
-      - name: city_id
+          - type: not_null
+      - name: city_agent_id
         data_type: varchar
-        description: Name of field agent filing the report
+        description: Foreign key to the city_agent table
         constraints:
           - type: foreign_key
-            expression: main_processed.location (location_id)
+            expression: main_processed.city_agent (city_agent_id)
+          - type: not_null

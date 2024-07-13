@@ -1,0 +1,18 @@
+version: 2.0
+
+models:
+  - name: date_witness
+    description: Modelled data for date of witness sighting
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: date_witness_id
+        data_type: varchar
+        description: Primary key of date_witness table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: date_witness
+        data_type: date
+        description: Date of witness sighting

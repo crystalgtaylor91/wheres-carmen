@@ -1,0 +1,18 @@
+version: 2.0
+
+models:
+  - name: region
+    description: Modelled data for region
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: region_id
+        data_type: varchar
+        description: Primary key of region table
+        constraints:
+          - type: not_null
+          - type: primary_key
+      - name: region
+        data_type: string
+        description: Region where the witness sighted the perp

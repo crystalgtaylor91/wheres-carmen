@@ -20,8 +20,5 @@ models:
           - type: primary_key
       - name: witness
         data_type: string
-        description: Name of witness sighting the perpetrator
-      - name: date_witness
-        data_type: date
-        description: Date of witness sighting    
+        description: Name of witness sighting the perpetrator 
            

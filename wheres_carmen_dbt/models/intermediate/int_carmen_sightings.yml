@@ -46,3 +46,7 @@ models:
       - name: behavior
         data_type: string
         description: Short description of perpetrator behavior
+      - name: region
+        data_type: string
+        description: Region where the witness sighted the perp
+        
