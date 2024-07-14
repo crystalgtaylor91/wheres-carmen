@@ -25,7 +25,8 @@ models:
       +schema: intermediate
     processed:
       +schema: processed
-      +materialized: table
+      +materialized: incremental
+      +on_schema_change: "append_new_columns"
     analytics:
       +schema: analytics
       +materialized: view

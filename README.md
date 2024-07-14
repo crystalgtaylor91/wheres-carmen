@@ -131,6 +131,8 @@ Note: I wasn't sure from the wording of the question whether this was supposed t
 
 ### a. For each month, which agency region is Carmen Sandiego most likely to be found?
 See model [*analytics_mode_agency_region.sql*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/wheres_carmen_dbt/models/analytics/analytics_mode_agency_region.sql)
+</br></br>
+Note for this model, for some months there are more than 1 most frequently occuring region, so I have listed these in separate rows so there will be more than 1 entry per (year, month) for these records.
 
 
 ### b. Also for each month, what is the probability that Ms. Sandiego is armed AND wearing a jacket, but NOT a hat? What general observations about Ms. Sandiego can you make from this?
