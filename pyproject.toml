@@ -14,8 +14,6 @@ duckdb = "^1.0.0"
 pandas = "^2.2.2"
 openpyxl = "^3.1.5"
 logging = "^0.4.9.6"
-pip = "^24.1.2"
-
 
 [build-system]
 requires = ["poetry-core"]
