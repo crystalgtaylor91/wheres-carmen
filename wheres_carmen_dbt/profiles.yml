@@ -3,10 +3,11 @@ wheres_carmen_dbt:
   outputs:
     dev:
       type: duckdb
-      path: './target/wheres_carmen_dbt.duckdb'
+      path: './target/wheres_carmen_dbt_dev.duckdb'
     
     lab:
       type: duckdb
+      path: './target/wheres_carmen_dbt_lab.duckdb'
     
     prod:
       type: duckdb

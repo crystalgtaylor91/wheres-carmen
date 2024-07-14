@@ -1,86 +1,153 @@
-# Skill Assessment: Data Engineer
+# Skill Assessment: Data Engineer - Crystal Taylor
 
-## Background
+## Requirements
+- <a href='https://python-poetry.org/docs/'>poetry</a>
+- python 3.12 or greater
 
-For this assessment, please build a dbt project that addresses the problem listed below. Ensure that you have it cloned to a git-based sharable repository, and that you have a README.md file in the repository's root discussing your analysis for the problem. You may use whichever open source SQL database flavor you prefer, just state which was chosen in your README.md (DuckDB comes recommended as it's easy to stand-up). 
+## Steps to install
+```
+git clone https://github.com/crystalgtaylor91/wheres-carmen.git
+cd wheres-carmen
+poetry install
+poetry shell
+cd wheres_carmen_dbt
+dbt deps
+dbt seed
+dbt run
+```
 
----
+## Additional steps
+I have created an addition python function [*excel_to_csv.py*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/scripts/excel_to_csv.py)
+This function loops through the [*data*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/data) folder and extract xlsx workbooks (including individual tabs to the [*seeds*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/wheres_carmen_dbt/models/seeds)) folder, and appends a column with the worksheet name to the dataset, in this use case this is the 'region' column
+To run the function the source and targets are required as follows:
+```
+python scripts/excel_to_csv.py data/ wheres_carmen_dbt/seeds/
+```
 
-## Problem: *Where in the World is Carmen Sandiego*? 
+## Notes
+I have used duckDB for it's simplicity as per your recommendation
+In a production environment I would use linters such as sqlfluff to ensure templates are consistent to standards
+I have used <a href='https://docs.getdbt.com/docs/collaborate/govern/model-contracts'>model contracts</a> in the processed layer, the junction tables define foreign key constraints on dependent entity tables, this can cause issues if you are trying to make changes to columns within those tables. To make changes to tables which have foreign key constraints the project must be run again as follows:
+```
+dbt clean
+dbt deps
+dbt seed
+dbt run
+```
+Model contracts can make changes difficult but these are good for ensuring modelled data adheres to set standards
 
-<table>
-  <tr>
-    <td> <img src="https://www.mobygames.com/images/covers/l/32898-where-in-the-world-is-carmen-sandiego-deluxe-edition-dos-front-cover.jpg" alt="WIWICSD" width=150px/></td>
-    <td width=450px> 
-        Some may know this <a href="https://en.wikipedia.org/wiki/Carmen_Sandiego_(video_game_series)">popular game franchise</a> in which players answer questions to solve the titular riddle. Your task today is an homage to this game! You've recently come aboard Interpol's team as a data engineer. Their dedicated data team has collected, parsed, and assembled several agent field reports over the years, but in Excel only. Their final collection is provided in the next subsection - your task is to engineer this data to provide analytical answers to the Interpol team!
-    </td>
-  </tr>
-</table>
+## Entity Relationship Diagram for Processed layer
+```mermaid
+erDiagram
+    date_agent {
+        Varchar date_agent_id PK
+        Date date_agent
+        Int year
+        Int month
+        Int day
+    }
 
----
+    agent {
+      Varchar agent_id PK
+      String agent
+    }
 
-## Data Sources & Common Model Development
+    agent_files_report_city_date {
+      Varchar agent_city_date_id PK
+      Varchar agent_id FK
+      Varchar city_agent_id FK
+      Varchar date_agent_id FK
+    }
 
-The data is contained in the attached Excel workbook [*carmen_sightings_20220629061307.xlsx*](https://github.com/achilala/wheres-carmen/blob/main/carmen_sightings/carmen_sightings_20220629061307.xlsx). Note the sheets are organized by eight (nearly continential) **regions** - there is an Interpol agency HQ in a city of each region to which the agents report. Each agency HQ uses their own language or dialect to compile their regional reports, but those reports are in [first normal form (1NF)](https://en.wikipedia.org/wiki/First_normal_form). 
+    city_agent {
+      Varchar city_agent_id PK
+      String city_agent
+    }
 
-> 1. _The first step of your task is to extract data from Excel workbook, treating as initial sources._
-> **HINT:** _CSV exports into `seeds` - whether by Excel or pandas - is a great way to start..._ :eyes:
+    location {
+      Varchar location_id PK
+      String city
+      Float longitude
+      Float latitude
+      String country
+    }
 
-As seen from the data, agencies are free to name report columns according to their custom - but let's call each "yablaka" an apple! :apple: 
-Each source ought follow a _common data dictionary_ of 
+    sighting {
+      Varchar sighting_id PK
+      Varchar agent_city_date_id FK
+      Varchar location_id FK
+      Varchar witness_region_date_id FK
+      Varchar observation_id FK
+    }
 
-| Column | Description | Type |
-| ------------ | ----------- | -----|
-| date_witness | Date of witness sighting | date |
-| witness | Name of witness sighting the perpetrator | string |
-| agent | Name of field agent filing the report | string |
-| date_agent | Date of field agent filing the report | date |
-| city_agent | HQ city where field agent files the report | string |
-| country | Country of sighting | string | 
-| city | City of sighting | string |
-| latitude | Latitude of sighting | float |
-| longitude | Longitude of sighting | float |
-| has_weapon | Was the perpetrator observed to be armed? | boolean |
-| has_hat | Was the perpetrator wearing a hat? | boolean |
-| has_jacket | Was the perpetrator wearing a jacket? | boolean |
-| behavior | Short description of perpetrator behavior | string |
+    witness {
+      Varchar witness_id PK
+      String witness
+    }
 
-> 2. _The second step of your task is to create view models that columnarly maps these eight different sources, each into this common data dictionary._ 
-> **HINT:** _You can do this as you wish - via CTE stages, macros, go wild! The end result however must be a view model for each source._ 
+    observation {
+      Varhcar obersvation_id PK
+      Boolean has_weapon
+      Boolean has_hat
+      Boolean has_jacket
+      String behavior
+    }
 
-Now that you have eight models, all with the same columns - join them together, but with a caveat:
+    date_witness {
+      Varchar date_witness_id PK
+      Date date_witness
+      Int year
+      Int month
+      Int day
+    }
 
-> 3. _The third step of your task is to join the six different views into ONE schema that goes beyond 1NF (\[2-6\]NF, BCNF). You have a great deal of design freedom here, so get creative! Just persist final resulting schema as tables into a new schema - please present your design's entity-relation-diagram in your README.md._
+    witness_sights_perp_region_date {
+      Varchar witness_region_date_id PK
+      Varchar witness_id FK
+      Varchar region_id FK
+      Varchar date_witness_id FK
+    }
 
----
+    region {
+      Varchar region_id PK
+      String region
+    }
+
+    date_agent ||--|{ agent_files_report_city_date : ""
+    agent ||--|{ agent_files_report_city_date : ""
+    agent_files_report_city_date }|--|| city_agent : ""
+    witness_sights_perp_region_date }|--|| date_witness : ""
+    witness ||--|{ witness_sights_perp_region_date : ""
+    witness_sights_perp_region_date }|--|| region : ""
+    sighting }|--|| agent_files_report_city_date : ""
+    sighting }|--|| location : ""
+    sighting }|--|| observation : ""
+    sighting }|--|| witness_sights_perp_region_date : ""
+```
 
 ## Analytics
+Notes: I wasn't sure from the wording of the question whether this was supposed to be an aggregate of all months or broken down by month and year so i have broken down by month and year but to convert to aggregation of months in the analytics models I would simply remove date from the column specification and group by clauses
 
-* This new schema includes the >1NF model you've just developed, as tables. From this model, it ought be fairly straightforward for you to create analytical view(s) to answer the following questions:
+### a. For each month, which agency region is Carmen Sandiego most likely to be found?
+See model [*analytics_mode_agency_region.sql*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/wheres_carmen_dbt/models/analytics/analytics_mode_agency_region.sql)
 
-    a. For each month, which agency region is Carmen Sandiego most likely to be found? 
 
-    b. Also for each month, what is the probability that Ms. Sandiego is armed __AND__ wearing a jacket, but __NOT__ a hat? What general observations about Ms. Sandiego can you make from this? 
+### b. Also for each month, what is the probability that Ms. Sandiego is armed AND wearing a jacket, but NOT a hat? What general observations about Ms. Sandiego can you make from this?
+See model [*analytics_probability_armed_jacket_not_hat.sql*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/wheres_carmen_dbt/models/analytics/analytics_probability_armed_jacket_not_hat.sql)
+There is a very low probability that Carmen is armed and wearing a jacket but not a hat
+Some metrics to illustrate this:
+- mode & average: 0.03
+- max: ~5 days out of a month
 
-    c. What are the three most occuring behaviors of Ms. Sandiego?
 
-    d. For each month, what is the probability Ms. Sandiego exhibits one of her three most occurring behaviors?
+### c. what are the 3 most occuring behaviors?
+See model [*analytics_common_behaviors.sql*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/wheres_carmen_dbt/models/analytics/analytics_common_behaviors.sql)
+| Behavior |
+| ------------ |
+| out-of-control |
+| complaining |
+| happy |
 
-> 4. _Create analytical views in your new schema to answer the four above questions. Document your steps and logic in your README.md._
-> **HINT:** _`dbt docs` (and its screenshots) are a great resource!_
 
----
-
-## Submission
-
->**NOTE:** Throughout, I've referenced `README.md`. If you are unfamiliar with [GitHub Markdown](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax), feel free to use your most convenient method: Word document, Google Doc, textfile (with image attachments), html - however you can best communicate your thoughts and ideas!
-
-* **Ensure that your project runs fully BEFORE submission!** 
-
-* Verify that you have the four analytical questions answered in your README.md, and you are confident with your presentation. 
-
-* Push and merge into your git repository's main branch.
-
-* Then notify the team that you're ready for a review.
-
-Enjoy the challenge and good luck!
+### d.  For each month, what is the probability Ms. Sandiego exhibits one of her three most occurring behaviors?  
+See model [*analytics_probability_behavior_occurs.sql*](https://github.com/crystalgtaylor91/wheres-carmen/blob/main/wheres_carmen_dbt/models/analytics/analytics_probability_behavior_occurs.sql)
