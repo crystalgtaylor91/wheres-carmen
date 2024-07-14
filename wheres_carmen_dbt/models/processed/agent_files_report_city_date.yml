@@ -1,8 +1,8 @@
 version: 2.0
 
 models:
-  - name: agent_files_report_city
-    description: Modelled data of the relationship between agent and location (city the agent files the report in) tables
+  - name: agent_files_report_city_date
+    description: Modelled data of the relationship between agent and location (city the agent files the report in) and date tables
     config:
       contract:
         enforced: true
@@ -12,9 +12,9 @@ models:
             - agent_id
             - city_agent_id
     columns:
-      - name: agent_city_id
+      - name: agent_city_date_id
         data_type: varchar
-        description: Primary key of agent_files_report_city table
+        description: Primary key of agent_files_report_city_date table
         constraints:
           - type: not_null
           - type: primary_key
@@ -31,4 +31,11 @@ models:
         constraints:
           - type: foreign_key
             expression: main_processed.city_agent (city_agent_id)
+          - type: not_null
+      - name: date_agent_id
+        data_type: varchar
+        description: Foreign key to the date_agent table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.date_agent (date_agent_id)
           - type: not_null

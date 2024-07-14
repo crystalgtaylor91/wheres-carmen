@@ -1,0 +1,23 @@
+version: 2.0
+
+models:
+  - name: analytics_mode_agency_region
+    description: Metrics depecting the agency region where carmen is most commonly found, organized by month & year
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - year
+            - month
+    columns:
+      - name: year
+        data_type: int
+        description: Year carmen is found
+      - name: month
+        data_type: int
+        description: Month carmen is found
+      - name: region
+        data_type: string
+        description: Region carmen is mostly found in for that month and year

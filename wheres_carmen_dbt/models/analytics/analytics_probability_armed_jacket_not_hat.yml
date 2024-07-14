@@ -1,0 +1,23 @@
+version: 2.0
+
+models:
+  - name: analytics_probability_armed_jacket_not_hat
+    description: Metric for the probability of carmen being armed and wearing a jacket but not wearing a hat, organized by month
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - year
+            - month
+    columns:
+      - name: year
+        data_type: int
+        description: Year carmen is found
+      - name: month
+        data_type: int
+        description: Month carmen is found
+      - name: probability
+        data_type: Double
+        description: Probability carmen is armed and wearing a jacket but not a hat

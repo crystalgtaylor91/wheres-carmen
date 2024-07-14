@@ -20,15 +20,15 @@ models:
           - type: primary_key
       - name: country
         data_type: string
-        description: Country of sighting or report filed
+        description: Country of sighting
       - name: city
         data_type: string
-        description: City of sighting or report filed
+        description: City of sighting
         constraints:
           - type: not_null
       - name: latitude
         data_type: float
-        description: Latitude of sighting or report filed
+        description: Latitude of sighting
       - name: longitude
         data_type: float
-        description: Longitude of sighting or report filed
+        description: Longitude of sighting

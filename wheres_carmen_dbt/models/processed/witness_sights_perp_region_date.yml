@@ -1,8 +1,8 @@
 version: 2.0
 
 models:
-  - name: witness_sights_perp_date
-    description: Modelled data for relationship between witness and date_witness (date witness sights the perp) tables
+  - name: witness_sights_perp_region_date
+    description: Modelled data for relationship between witness and region (region witness sights the perp) and date_witness tables
     config:
       contract:
         enforced: true
@@ -10,11 +10,12 @@ models:
       - dbt_utils.unique_combination_of_columns:
           combination_of_columns:
             - witness_id
+            - region_id
             - date_witness_id
     columns:
-      - name: witness_date_id
+      - name: witness_region_date_id
         data_type: varchar
-        description: Primary key of witness_sights_perp_date table
+        description: Primary key of witness_sights_perp_region table
         constraints:
           - type: not_null
           - type: primary_key
@@ -24,6 +25,12 @@ models:
         constraints:
           - type: foreign_key
             expression: main_processed.witness (witness_id)
+      - name: region_id
+        data_type: varchar
+        description: Foreign key to the region table
+        constraints:
+          - type: foreign_key
+            expression: main_processed.region (region_id)
       - name: date_witness_id
         data_type: varchar
         description: Foreign key to the date_witness table

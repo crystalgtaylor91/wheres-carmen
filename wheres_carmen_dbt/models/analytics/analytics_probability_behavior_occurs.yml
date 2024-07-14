@@ -1,0 +1,23 @@
+version: 2.0
+
+models:
+  - name: analytics_probability_behavior_occurs
+    description: Metric depecting the probability of whether the most commonly occuring behaviors are exhibited
+    config:
+      contract:
+        enforced: true
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - year
+            - month
+    columns:
+      - name: year
+        data_type: int
+        description: Year carmen is found
+      - name: month
+        data_type: int
+        description: Month carmen is found
+      - name: probability
+        data_type: double
+        description: Probability of most common behavior occuring

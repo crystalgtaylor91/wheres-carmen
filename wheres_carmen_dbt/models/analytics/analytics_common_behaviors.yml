@@ -1,0 +1,12 @@
+version: 2.0
+
+models:
+  - name: analytics_common_behaviors
+    description: Metric depecting the three most commonly occuring behaviors
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: behavior
+        data_type: string
+        description: Most commonly occuring behavior
