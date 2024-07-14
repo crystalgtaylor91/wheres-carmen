@@ -1,3 +1,6 @@
+-- depends_on: {{ ref('agent') }}
+-- depends_on: {{ ref('city_agent') }}
+
 with junction_table as (
     select distinct
         {{ dbt_utils.generate_surrogate_key(['agent']) }} as agent_id,

@@ -16,3 +16,18 @@ models:
       - name: date_agent
         data_type: date
         description: Date of field agent filing the report
+      - name: year
+        data_type: int
+        description: Year from date of field agent filing the report
+        constraints:
+          - type: not_null
+      - name: month
+        data_type: int
+        descpription: Month from date of field agent filing the report
+        constraints:
+          - type: not_null
+      - name: day
+        data_type: int
+        descpription: Day from date of field agent filing the report
+        constraints:
+          - type: not_null

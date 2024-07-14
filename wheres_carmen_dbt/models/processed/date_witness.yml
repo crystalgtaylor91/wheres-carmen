@@ -16,3 +16,18 @@ models:
       - name: date_witness
         data_type: date
         description: Date of witness sighting
+      - name: year
+        data_type: int
+        description: Year from date of witness sighting
+        constraints:
+          - type: not_null
+      - name: month
+        data_type: int
+        description: Month from date of witness sighting
+        constraints:
+          - type: not_null
+      - name: day
+        data_type: int
+        description: Day from date of witness sighting
+        constraints:
+          - type: not_null

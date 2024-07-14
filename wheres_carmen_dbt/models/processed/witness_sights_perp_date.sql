@@ -1,3 +1,6 @@
+-- depends_on: {{ ref('witness') }}
+-- depends_on: {{ ref('date_witness') }}
+
 with junction_table as (
     select distinct
         {{ dbt_utils.generate_surrogate_key(['witness']) }} as witness_id,

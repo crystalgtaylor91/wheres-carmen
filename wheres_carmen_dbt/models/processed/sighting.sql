@@ -1,3 +1,8 @@
+-- depends_on: {{ ref('agent') }}
+-- depends_on: {{ ref('location') }}
+-- depends_on: {{ ref('witness') }}
+-- depends_on: {{ ref('observation') }}
+
 with junction_table as (
     select distinct
         {{ dbt_utils.generate_surrogate_key(['agent']) }} as agent_id,
